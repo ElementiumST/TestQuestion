@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TestQuestion</string>
+    <string name="title_planets">Planets</string>
+    <string name="title_statistics">Statistics</string>
+</resources>
