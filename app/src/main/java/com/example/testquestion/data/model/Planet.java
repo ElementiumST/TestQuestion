@@ -1,12 +1,6 @@
 package com.example.testquestion.data.model;
 
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Objects;
 
 public class Planet extends ModelDataClass {
     private String name, rotationPeriod, orbitalPeriod, diameter, climate, gravity, terrain,
@@ -74,12 +68,16 @@ public class Planet extends ModelDataClass {
             terrain = object.getString("terrain");
             surface_water = object.getString("surface_water");
             population = object.getString("population");
-            JSONArray array = object.getJSONArray("residents");
-            //TODO next parse
-            //peoples = getArrayOfObject(array, People.class);
+            peoples = getArrayOfObjectByUrlArray(object.getJSONArray("residents"), People.class);
+            films = getArrayOfObjectByUrlArray(object.getJSONArray("films"), Film.class);
         } catch (Exception e) {
-            Log.e("JSON parse error", Objects.requireNonNull(e.getMessage()));
+            sendJSONException(e);
         }
 
     }
+
+    public static String getBasePageUrl() {
+        return API_URL + "planets/";
+    }
+
 }

@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.testquestion.data.model.ModelDataClass;
@@ -15,13 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  * Ну решил сделать удобную систему для подгрузки данных с API.
@@ -30,22 +26,25 @@ import java.util.logging.Logger;
  * и по завершению отдает данные
  * @param <T>
  */
-public abstract class BaseGetProvider<T extends ModelDataClass> implements Provider {
+public abstract class BaseGetProvider<T extends ModelDataClass> implements Provider<T> {
     protected OnProvideContinue<T> listener;
-    protected final Order order;
+    protected Order order;
     protected Context context;
     protected RequestQueue requestQueue;
     protected final Class<T> genericType;
 
+
     @SuppressWarnings("unchecked")
-    public BaseGetProvider(Context context, Order order, OnProvideContinue<T> listener) {
+    public BaseGetProvider(Context context, Class<T> type, Order order, OnProvideContinue<T> listener) {
         this.listener = listener;
         this.order = order;
         this.context = context;
         createRequestQueue();
-        this.genericType = ((Class) ((ParameterizedType) Objects.requireNonNull(getClass()
-                .getGenericSuperclass())).getActualTypeArguments()[0]);
+        System.out.println();
+        this.genericType = type;
     }
+
+
     public void provide() {
         for (String item:
                 order.getUrls()) {
@@ -86,6 +85,7 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                 InvocationTargetException | ClassCastException | JSONException e) {
             Log.e("Create new instance error", Objects.requireNonNull(e.getMessage()));
+            e.printStackTrace();
             listener.onFail("parse data error for: "+response);
         }
     }
@@ -94,7 +94,7 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         checkList.forEach((k, v) -> {
             if(!v) return;
         });
-        onLoadSuccess();
+        onLoadSuccess(products);
         if(listener != null)
             listener.onSuccess(products);
     }

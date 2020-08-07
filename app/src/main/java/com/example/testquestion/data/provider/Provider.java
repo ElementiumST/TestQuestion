@@ -1,6 +1,8 @@
 package com.example.testquestion.data.provider;
 
-public interface Provider {
+import java.util.List;
+
+public interface Provider<T> {
     void provide();
-    void onLoadSuccess();
+    void onLoadSuccess(List<T> data);
 }

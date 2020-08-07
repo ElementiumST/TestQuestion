@@ -9,15 +9,20 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 public abstract class ModelDataClass implements Serializable {
-    protected String URL;
-    protected String created, edited;
+    static final String API_URL = "https://swapi.dev/api/";
+    private String URL;
+    private String created, edited;
 
-    public ModelDataClass(String URL) {
+    public ModelDataClass() {
+    }
+
+    ModelDataClass(String URL) {
         this.URL = URL;
     }
-    public ModelDataClass(JSONObject object) {
+    ModelDataClass(JSONObject object) {
         try {
             URL = object.getString("url");
             created = object.getString("created");
@@ -45,7 +50,7 @@ public abstract class ModelDataClass implements Serializable {
         @SuppressWarnings("unchecked")
         T[] objectArray = (T[]) Array.newInstance(clazz, array.length());
         for(int i = 0; i < array.length(); i++) {
-            objectArray[i] = clazz.getConstructor(String.class).newInstance(array.getJSONObject(i).toString());
+            objectArray[i] = clazz.getConstructor(String.class).newInstance(array.getString(i));
         }
         return objectArray;
     }
@@ -58,5 +63,11 @@ public abstract class ModelDataClass implements Serializable {
         }
         return objectArray;
     }
-
+    void sendJSONException(Exception e) {
+        Log.e("JSON parse error", Objects.requireNonNull(e.getMessage()));
+        e.printStackTrace();
+    }
+    public static String getBasePageUrl() {
+        return API_URL;
+    }
 }

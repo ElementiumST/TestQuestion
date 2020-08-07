@@ -14,9 +14,18 @@ import java.util.Collections;
 import java.util.Objects;
 
 public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProvider<T> {
-    public PageProvider(Context context, Order order) {
-        super(context, order, null);
+    public PageProvider(Context context, Class<T> type) {
+        super(context, type, null, null);
     }
+
+    public PageProvider(Context context, Class<T> type, Order order) {
+        super(context, type, order, null);
+    }
+
+    public PageProvider(Context context, Class<T> type, Order order, OnProvideContinue<T> listener) {
+        super(context, type, order, listener);
+    }
+
 
     @Override
     protected void handleResponse(String response) {
@@ -27,6 +36,7 @@ public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProv
             checkToComplete();
         } catch (JSONException e) {
             Log.e("Create new instance error", Objects.requireNonNull(e.getMessage()));
+            e.printStackTrace();
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
