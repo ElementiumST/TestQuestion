@@ -35,9 +35,6 @@ public class Specie extends ModelDataClass{
         }
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "species/";
-    }
 
     public String getName() {
         return name;

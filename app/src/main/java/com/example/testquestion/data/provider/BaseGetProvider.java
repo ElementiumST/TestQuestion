@@ -57,7 +57,7 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
     }
 
     protected Map<String, Boolean> checkList = new HashMap<>();
-    protected List<T> products = new ArrayList<>();
+    protected ArrayList<T> products = new ArrayList<>();
 
     void executeProvideFor(String url) {
         StringRequest request = new StringRequest(Request.Method.GET,
@@ -68,7 +68,8 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
                 Log.e("Provide error", Objects.requireNonNull(error.getMessage()));
             // отсутствие товара на складе тоже ответ, так что нужно ответить о том, что ответ всетаки пришел
             checkList.put(url, true);
-            listener.onFail("request error for: " + url);
+            if(listener != null)
+                listener.onFail("request error for: " + url);
         });
         // добавляем запрос в очередь
         requestQueue.add(request);

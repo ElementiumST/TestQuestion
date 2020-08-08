@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public class Film extends ModelDataClass {
 
@@ -38,11 +39,18 @@ public class Film extends ModelDataClass {
         }
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "films/";
+    @Override
+    public HashMap<String, String> getOtherContent() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("Title", title);
+        data.put("Episode number", String.valueOf(episodeId));
+        data.put("Opening crawl", openingCrawl);
+        data.put("Director", director);
+        data.put("Release date", releaseDate);
+        return data;
     }
-
-        public String getTitle() {
+    @Override
+    public String getName() {
         return title;
     }
 

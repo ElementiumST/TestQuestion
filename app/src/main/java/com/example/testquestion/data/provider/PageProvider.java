@@ -3,6 +3,7 @@ package com.example.testquestion.data.provider;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.testquestion.BuildConfig;
 import com.example.testquestion.data.model.ModelDataClass;
 
 import org.json.JSONArray;
@@ -35,6 +36,9 @@ public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProv
             Collections.addAll(products, T.getArrayOfObject(array, genericType));
             checkToComplete();
         } catch (JSONException e) {
+            if (BuildConfig.DEBUG) {
+                Log.e("Create new instance error", response+"\n"+order.getUrls().get(0));
+            }
             Log.e("Create new instance error", Objects.requireNonNull(e.getMessage()));
             e.printStackTrace();
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {

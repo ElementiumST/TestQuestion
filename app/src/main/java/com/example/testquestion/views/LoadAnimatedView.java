@@ -23,51 +23,34 @@ import com.example.testquestion.R;
 public class LoadAnimatedView extends FrameLayout {
     public LoadAnimatedView(@NonNull Context context) {
         super(context);
-        inflateView(context);
+        inflateView();
     }
 
     public LoadAnimatedView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        inflateView(context);
+        inflateView();
     }
 
     public LoadAnimatedView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        inflateView(context);
+        inflateView();
     }
 
     View view;
-    private void inflateView(Context context) {
-        ImageView imageView = new ImageView(context);
+    private void inflateView() {
+        ImageView imageView = new ImageView(getContext());
         imageView.setImageResource(R.drawable.ic_planet);
 
 
         this.addView(imageView);
-        this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        Math.round(LoadAnimatedView.this.getWidth()/1.2f),
-                        Math.round(LoadAnimatedView.this.getHeight()/1.2f));
-                params.gravity = Gravity.CENTER;
-                imageView.setLayoutParams(params);
-            }
+        this.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            LayoutParams params = new LayoutParams(
+                    Math.round(LoadAnimatedView.this.getWidth()/1.2f),
+                    Math.round(LoadAnimatedView.this.getHeight()/1.2f));
+            params.gravity = Gravity.CENTER;
+            imageView.setLayoutParams(params);
         });
-        /*
-        LayoutInflater inflater = LayoutInflater.from(context);
-        view = inflater.inflate(R.layout.view_loader,  this, true);
-        ImageView imageView = view.findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.ic_planet);
-
-        ViewGroup.LayoutParams params = imageView.getLayoutParams();
-        params.width = this.getWidth()/2;
-        params.height = this.getHeight()/2;
-        imageView.setLayoutParams(params);
-        requestLayout();
-
-
-         */
-        Animation anim = AnimationUtils.loadAnimation(context, R.anim.pulse);
+        Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.pulse);
         imageView.startAnimation(anim);
 
     }

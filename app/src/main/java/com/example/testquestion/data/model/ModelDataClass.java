@@ -1,5 +1,6 @@
 package com.example.testquestion.data.model;
 
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,10 +10,10 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Objects;
 
 public abstract class ModelDataClass implements Serializable {
-    static final String API_URL = "https://swapi.dev/api/";
     private String URL;
     private String created, edited;
 
@@ -45,6 +46,13 @@ public abstract class ModelDataClass implements Serializable {
         return edited;
     }
 
+    public HashMap<String, String> getOtherContent() {
+        return null;
+    }
+    public String getName() {
+        return null;
+    }
+
     public static <T extends ModelDataClass> T[] getArrayOfObjectByUrlArray(JSONArray array, Class<T> clazz)
             throws JSONException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         @SuppressWarnings("unchecked")
@@ -67,7 +75,5 @@ public abstract class ModelDataClass implements Serializable {
         Log.e("JSON parse error", Objects.requireNonNull(e.getMessage()));
         e.printStackTrace();
     }
-    public static String getBasePageUrl() {
-        return API_URL;
-    }
+
 }

@@ -90,7 +90,4 @@ public class People extends ModelDataClass{
         return starShips;
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "people/";
-    }
 }

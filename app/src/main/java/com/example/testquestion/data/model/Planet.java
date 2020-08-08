@@ -2,6 +2,8 @@ package com.example.testquestion.data.model;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class Planet extends ModelDataClass {
     private String name, rotationPeriod, orbitalPeriod, diameter, climate, gravity, terrain,
             surface_water, population;
@@ -12,6 +14,7 @@ public class Planet extends ModelDataClass {
         super(URL);
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -76,8 +79,17 @@ public class Planet extends ModelDataClass {
 
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "planets/";
+    @Override
+    public HashMap<String, String> getOtherContent() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("Rotation period", rotationPeriod);
+        data.put("Orbital period", orbitalPeriod);
+        data.put("Diameter", diameter);
+        data.put("Climate", climate);
+        data.put("Gravity", gravity);
+        data.put("Population", population);
+        return data;
     }
+
 
 }

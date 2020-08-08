@@ -38,8 +38,4 @@ public class StarShip extends ModelDataClass {
         }
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "starships/";
-    }
-
 }

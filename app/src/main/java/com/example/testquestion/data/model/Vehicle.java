@@ -37,8 +37,4 @@ public class Vehicle extends ModelDataClass{
 
     }
 
-    public static String getBasePageUrl() {
-        return API_URL + "vehicles/";
-    }
-
 }
