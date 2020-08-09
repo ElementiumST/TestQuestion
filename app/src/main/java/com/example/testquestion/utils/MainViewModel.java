@@ -1,4 +1,4 @@
-package com.example.testquestion.ViewModel;
+package com.example.testquestion.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,12 +6,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.testquestion.BuildConfig;
-import com.example.testquestion.MainActivity;
-import com.example.testquestion.data.model.Film;
-import com.example.testquestion.data.model.ModelDataClass;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.data.provider.Order;
 import com.example.testquestion.data.provider.PageProvider;
 

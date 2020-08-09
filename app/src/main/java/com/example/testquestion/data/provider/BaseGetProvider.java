@@ -7,16 +7,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.testquestion.data.model.ModelDataClass;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -33,6 +30,9 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
     protected RequestQueue requestQueue;
     protected final Class<T> genericType;
 
+    public BaseGetProvider(Context context, Class<T> type, Order order) {
+        this(context, type, order, null);
+    }
 
     @SuppressWarnings("unchecked")
     public BaseGetProvider(Context context, Class<T> type, Order order, OnProvideContinue<T> listener) {
@@ -40,12 +40,12 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         this.order = order;
         this.context = context;
         createRequestQueue();
-        System.out.println();
         this.genericType = type;
     }
 
 
     public void provide() {
+        number = order.getUrls().size();
         for (String item:
                 order.getUrls()) {
             executeProvideFor(item);
@@ -56,7 +56,6 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         this.requestQueue = Volley.newRequestQueue(context);
     }
 
-    protected Map<String, Boolean> checkList = new HashMap<>();
     protected ArrayList<T> products = new ArrayList<>();
 
     void executeProvideFor(String url) {
@@ -67,7 +66,6 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
             if(error.getMessage() != null)
                 Log.e("Provide error", Objects.requireNonNull(error.getMessage()));
             // отсутствие товара на складе тоже ответ, так что нужно ответить о том, что ответ всетаки пришел
-            checkList.put(url, true);
             if(listener != null)
                 listener.onFail("request error for: " + url);
         });
@@ -77,8 +75,6 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
     protected void handleResponse(String response){
         try {
             T instance = genericType.getConstructor(JSONObject.class).newInstance(new JSONObject(response));
-            //Добавляем отметку о том, что данные по заказу пришли
-            checkList.put(instance.getURL(), true);
             //Добавляем товар в нашу поставку
             products.add(instance);
             //проверка на завершенность сбора товара для поставки
@@ -91,10 +87,14 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         }
     }
 
+    int counter = 0;
+    int number;
     void checkToComplete() {
-        checkList.forEach((k, v) -> {
-            if(!v) return;
-        });
+        counter++;
+        if(counter < number) return;
+        complete();
+    }
+    void complete() {
         onLoadSuccess(products);
         if(listener != null)
             listener.onSuccess(products);

@@ -1,18 +1,11 @@
-package com.example.testquestion.views;
+package com.example.testquestion.ui.views;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +29,6 @@ public class LoadAnimatedView extends FrameLayout {
         inflateView();
     }
 
-    View view;
     private void inflateView() {
         ImageView imageView = new ImageView(getContext());
         imageView.setImageResource(R.drawable.ic_planet);
@@ -53,5 +45,10 @@ public class LoadAnimatedView extends FrameLayout {
         Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.pulse);
         imageView.startAnimation(anim);
 
+    }
+
+    public void setSize(int width, int height) {
+        LayoutParams params = new LayoutParams(width, height);
+        this.setLayoutParams(params);
     }
 }

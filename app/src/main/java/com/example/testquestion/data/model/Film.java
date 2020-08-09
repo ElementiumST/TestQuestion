@@ -1,10 +1,15 @@
 package com.example.testquestion.data.model;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+import com.example.testquestion.data.model.modules.ModelDataClass;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Film extends ModelDataClass {
 
@@ -39,7 +44,6 @@ public class Film extends ModelDataClass {
         }
     }
 
-    @Override
     public HashMap<String, String> getOtherContent() {
         HashMap<String, String> data = new HashMap<>();
         data.put("Title", title);
@@ -49,7 +53,18 @@ public class Film extends ModelDataClass {
         data.put("Release date", releaseDate);
         return data;
     }
+
     @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
+        List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(Vehicle.class, "Vehicles", vehicles));
+        list.add((ArrayValue<T>) new ArrayValue<>(People.class, "Characters", peoples));
+        list.add((ArrayValue<T>) new ArrayValue<>(Planet.class, "Planets", planets));
+        list.add((ArrayValue<T>) new ArrayValue<>(StarShip.class, "Starships", starShips));
+        list.add((ArrayValue<T>) new ArrayValue<>(Specie.class, "Species", species));
+        return list;
+    }
     public String getName() {
         return title;
     }

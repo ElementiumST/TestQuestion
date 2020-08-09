@@ -13,6 +13,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.testquestion.R;
+import com.example.testquestion.data.model.Film;
+import com.example.testquestion.data.model.People;
+import com.example.testquestion.data.model.Planet;
+import com.example.testquestion.data.model.Specie;
+import com.example.testquestion.data.model.StarShip;
+import com.example.testquestion.data.model.Vehicle;
+import com.example.testquestion.ui.activities.MainActivity;
+import com.example.testquestion.ui.views.carousel.CarouselView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatisticsFragment extends Fragment {
 
@@ -21,6 +32,15 @@ public class StatisticsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
+        CarouselView view = root.findViewById(R.id.carousel);
+        List<Class> classes = new ArrayList<>();
+        classes.add(Film.class);
+        classes.add(Planet.class);
+        classes.add(People.class);
+        classes.add(Specie.class);
+        classes.add(StarShip.class);
+        classes.add(Vehicle.class);
+        view.setContent(classes, (MainActivity) requireActivity());
         return root;
     }
 }

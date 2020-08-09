@@ -9,17 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.LayoutManager;
 
-import com.example.testquestion.MainActivity;
-import com.example.testquestion.OnScrollListener;
+import com.example.testquestion.ui.activities.MainActivity;
+import com.example.testquestion.utils.OnScrollListener;
 import com.example.testquestion.R;
-import com.example.testquestion.data.model.Planet;
-import com.example.testquestion.data.model.URLProvider;
-import com.example.testquestion.ui.DataAdapter;
 
-public class PlanetFragment extends Fragment {
-
+public class ListFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,13 +24,11 @@ public class PlanetFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
 
-        LayoutManager manager = new LinearLayoutManager(requireContext());
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(manager);
 
         MainActivity activity = (MainActivity) requireActivity();
-        @SuppressWarnings("unchecked")
-        DataAdapter<Planet> planetDataAdapter = new DataAdapter<Planet>(activity.getModel(URLProvider.PLANET), (MainActivity) requireActivity(), Planet.class);
-        recyclerView.setAdapter(planetDataAdapter);
+        recyclerView.setAdapter(activity.getAdapter(activity.getCurrentListClass().getSimpleName()));
         recyclerView.addOnScrollListener(new OnScrollListener());
 
         return root;

@@ -1,10 +1,10 @@
-package com.example.testquestion;
+package com.example.testquestion.utils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
-import com.example.testquestion.ui.DataAdapter;
+import com.example.testquestion.ui.adapters.DataAdapter;
 
 import java.util.Objects;
 

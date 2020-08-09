@@ -1,11 +1,17 @@
 package com.example.testquestion.data.model;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+import com.example.testquestion.data.model.modules.ModelDataClass;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class Specie extends ModelDataClass{
+public class Specie extends ModelDataClass {
     private String name, classification, designation, averageHeight, skinColor, hairColor, eyeColor,
             averageLifespan, homeWorld, language;
     People[] peoples;
@@ -35,7 +41,18 @@ public class Specie extends ModelDataClass{
         }
     }
 
-
+    public HashMap<String, String> getOtherContent() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("Classification", classification);
+        data.put("Designation", designation);
+        data.put("Average height", averageHeight);
+        data.put("Skin color", skinColor);
+        data.put("Eye color", eyeColor);
+        data.put("Average lifespan", averageLifespan);
+        data.put("Home world", homeWorld);
+        data.put("language", language);
+        return data;
+    }
     public String getName() {
         return name;
     }
@@ -83,4 +100,12 @@ public class Specie extends ModelDataClass{
     public Film[] getFilms() {
         return films;
     }
-}
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
+        List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(People.class, "Peoples", peoples));
+        list.add((ArrayValue<T>) new ArrayValue<>(Film.class, "Films", films));
+        return list;
+    }}

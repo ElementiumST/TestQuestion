@@ -1,11 +1,17 @@
 package com.example.testquestion.data.model;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+import com.example.testquestion.data.model.modules.ModelDataClass;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class Vehicle extends ModelDataClass{
+public class Vehicle extends ModelDataClass {
     private String name, model, manufacturer, costInCredits, length, maxAtmospheringSpeed, crew,
             passengers, cargoCapacity, consumables, vehicleClass;
     People[] peoples;
@@ -37,4 +43,31 @@ public class Vehicle extends ModelDataClass{
 
     }
 
-}
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public HashMap<String, String> getOtherContent() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("Model", model);
+        data.put("Manufacturer", manufacturer);
+        data.put("Cost in credits", costInCredits);
+        data.put("Length", length);
+        data.put("Max atmophering speed", maxAtmospheringSpeed);
+        data.put("Crew", crew);
+        data.put("Passengers", passengers);
+        data.put("Cargo capacity", cargoCapacity);
+        data.put("Consumables", consumables);
+        data.put("vehicle class", vehicleClass);
+        return data;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
+        List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(People.class, "Pilots", peoples));
+        list.add((ArrayValue<T>) new ArrayValue<>(Film.class, "Films", films));
+        return list;
+    }}

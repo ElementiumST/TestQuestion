@@ -1,11 +1,17 @@
 package com.example.testquestion.data.model;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+import com.example.testquestion.data.model.modules.ModelDataClass;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class People extends ModelDataClass{
+public class People extends ModelDataClass {
     private String birthYear, eyeColor, name, height, mass, hairColor, skinColor, gender, homeWorld;
     private Film[] films;
     private Specie[] species;
@@ -37,7 +43,28 @@ public class People extends ModelDataClass{
             sendJSONException(e);
         }
     }
+    public HashMap<String, String> getOtherContent() {
+        HashMap<String, String> data = new HashMap<>();
+        data.put("Height", height);
+        data.put("Mass", mass);
+        data.put("Hair color", hairColor);
+        data.put("Skin color", skinColor);
+        data.put("Birth year", birthYear);
+        data.put("Gender", gender);
+        data.put("Home world", homeWorld);
+        return data;
+    }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
+        List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(Vehicle.class, "Vehicles", vehicles));
+        list.add((ArrayValue<T>) new ArrayValue<>(Film.class, "Films", films));
+        list.add((ArrayValue<T>) new ArrayValue<>(StarShip.class, "Starships", starShips));
+        list.add((ArrayValue<T>) new ArrayValue<>(Specie.class, "Species", species));
+        return list;
+    }
     public String getBirthYear() {
         return birthYear;
     }

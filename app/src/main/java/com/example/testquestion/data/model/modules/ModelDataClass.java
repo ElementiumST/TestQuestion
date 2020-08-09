@@ -1,6 +1,5 @@
-package com.example.testquestion.data.model;
+package com.example.testquestion.data.model.modules;
 
-import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -10,20 +9,19 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Objects;
 
-public abstract class ModelDataClass implements Serializable {
+public abstract class ModelDataClass implements Serializable, ModelClass {
     private String URL;
     private String created, edited;
 
     public ModelDataClass() {
     }
 
-    ModelDataClass(String URL) {
+    public ModelDataClass(String URL) {
         this.URL = URL;
     }
-    ModelDataClass(JSONObject object) {
+    public ModelDataClass(JSONObject object) {
         try {
             URL = object.getString("url");
             created = object.getString("created");
@@ -46,12 +44,6 @@ public abstract class ModelDataClass implements Serializable {
         return edited;
     }
 
-    public HashMap<String, String> getOtherContent() {
-        return null;
-    }
-    public String getName() {
-        return null;
-    }
 
     public static <T extends ModelDataClass> T[] getArrayOfObjectByUrlArray(JSONArray array, Class<T> clazz)
             throws JSONException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -71,9 +63,8 @@ public abstract class ModelDataClass implements Serializable {
         }
         return objectArray;
     }
-    void sendJSONException(Exception e) {
+    public void sendJSONException(Exception e) {
         Log.e("JSON parse error", Objects.requireNonNull(e.getMessage()));
         e.printStackTrace();
     }
-
 }

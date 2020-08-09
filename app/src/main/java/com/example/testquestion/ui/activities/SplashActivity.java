@@ -1,27 +1,25 @@
-package com.example.testquestion;
+package com.example.testquestion.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import com.example.testquestion.R;
 import com.example.testquestion.data.model.Film;
-import com.example.testquestion.data.model.ModelDataClass;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.data.model.People;
 import com.example.testquestion.data.model.Planet;
 import com.example.testquestion.data.model.Specie;
 import com.example.testquestion.data.model.StarShip;
-import com.example.testquestion.data.model.URLProvider;
+import com.example.testquestion.utils.URLProvider;
 import com.example.testquestion.data.model.Vehicle;
 import com.example.testquestion.data.provider.Order;
 import com.example.testquestion.data.provider.PageProvider;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 

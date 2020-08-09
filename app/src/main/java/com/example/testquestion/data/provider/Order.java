@@ -2,7 +2,7 @@ package com.example.testquestion.data.provider;
 
 import android.util.Log;
 
-import com.example.testquestion.data.model.ModelDataClass;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 
 import java.util.ArrayList;
 import java.util.List;

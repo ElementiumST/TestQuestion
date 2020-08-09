@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.testquestion.BuildConfig;
-import com.example.testquestion.data.model.ModelDataClass;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +34,8 @@ public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProv
             JSONObject object = new JSONObject(response);
             JSONArray array = object.getJSONArray("results");
             Collections.addAll(products, T.getArrayOfObject(array, genericType));
-            checkToComplete();
+            complete();
+
         } catch (JSONException e) {
             if (BuildConfig.DEBUG) {
                 Log.e("Create new instance error", response+"\n"+order.getUrls().get(0));

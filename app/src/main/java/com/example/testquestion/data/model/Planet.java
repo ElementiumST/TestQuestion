@@ -1,8 +1,13 @@
 package com.example.testquestion.data.model;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+import com.example.testquestion.data.model.modules.ModelDataClass;
+
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Planet extends ModelDataClass {
     private String name, rotationPeriod, orbitalPeriod, diameter, climate, gravity, terrain,
@@ -14,7 +19,6 @@ public class Planet extends ModelDataClass {
         super(URL);
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -79,7 +83,6 @@ public class Planet extends ModelDataClass {
 
     }
 
-    @Override
     public HashMap<String, String> getOtherContent() {
         HashMap<String, String> data = new HashMap<>();
         data.put("Rotation period", rotationPeriod);
@@ -90,6 +93,12 @@ public class Planet extends ModelDataClass {
         data.put("Population", population);
         return data;
     }
-
-
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
+        List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(People.class, "Residents", peoples));
+        list.add((ArrayValue<T>) new ArrayValue<>(Film.class, "Films", films));
+        return list;
+    }
 }

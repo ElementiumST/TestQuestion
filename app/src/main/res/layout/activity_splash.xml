@@ -5,9 +5,9 @@
     style="@style/BackgroundConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity">
+    tools:context=".ui.activities.SplashActivity">
 
-    <com.example.testquestion.views.LoadAnimatedView
+    <com.example.testquestion.ui.views.LoadAnimatedView
         android:id="@+id/loadAnimatedView"
         android:layout_width="96dp"
         android:layout_height="96dp"

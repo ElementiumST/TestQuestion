@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_planet"
-        android:name="com.example.testquestion.ui.planet.PlanetFragment"
+        android:name="com.example.testquestion.ui.planet.ListFragment"
         android:label="@string/title_planets"
         tools:layout="@layout/fragment_planets" />
 
