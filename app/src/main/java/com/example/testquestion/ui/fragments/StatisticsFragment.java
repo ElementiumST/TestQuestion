@@ -41,7 +41,6 @@ public class StatisticsFragment extends Fragment {
         classes.add(Specie.class);
         classes.add(StarShip.class);
         classes.add(Vehicle.class);
-
         MainActivity activity = (MainActivity) requireActivity();
         view.setContent(classes, dataStack -> activity.setActiveInfoFragment(dataStack.getClazz()));
         return root;
