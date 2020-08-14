@@ -2,21 +2,21 @@ package com.example.testquestion.utils;
 
 import com.example.testquestion.R;
 import com.example.testquestion.data.model.Film;
-import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.data.model.People;
 import com.example.testquestion.data.model.Planet;
 import com.example.testquestion.data.model.Specie;
 import com.example.testquestion.data.model.StarShip;
 import com.example.testquestion.data.model.Vehicle;
+import com.example.testquestion.data.model.modules.ModelDataClass;
 
 public class URLProvider {
-    public static final String API_URL = "https://swapi.dev/api/";
-    public static final String PEOPLE = API_URL+"people/";
-    public static final String FILM = API_URL+"films/";
-    public static final String PLANET = API_URL+"planets/";
-    public static final String SPECIE = API_URL+"species/";
-    public static final String STAR_SHIP = API_URL+"starships/";
-    public static final String VEHICLE = API_URL+"vehicles/";
+    private static final String API_URL = "https://swapi.dev/api/";
+    private static final String PEOPLE = API_URL+"people/";
+    private static final String FILM = API_URL+"films/";
+    private static final String PLANET = API_URL+"planets/";
+    private static final String SPECIE = API_URL+"species/";
+    private static final String STAR_SHIP = API_URL+"starships/";
+    private static final String VEHICLE = API_URL+"vehicles/";
 
     public static String getURL(String className) {
         switch (className) {

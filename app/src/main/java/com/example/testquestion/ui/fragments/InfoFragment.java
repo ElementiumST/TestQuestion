@@ -12,10 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.testquestion.data.dataClasses.DataStack;
 import com.example.testquestion.R;
 import com.example.testquestion.data.dataClasses.ArrayValue;
-import com.example.testquestion.data.model.modules.ModelDataClass;
+import com.example.testquestion.data.dataClasses.DataStack;
 import com.example.testquestion.ui.activities.MoreInfoActivity;
 import com.example.testquestion.ui.views.InfoView;
 import com.example.testquestion.ui.views.carousel.CarouselView;

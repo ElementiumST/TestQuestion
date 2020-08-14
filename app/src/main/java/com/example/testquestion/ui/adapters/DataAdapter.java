@@ -1,7 +1,6 @@
 package com.example.testquestion.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testquestion.data.dataClasses.DataStack;
-import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.R;
-import com.example.testquestion.utils.MainViewModel;
 import com.example.testquestion.data.model.modules.ModelDataClass;
-import com.example.testquestion.utils.URLProvider;
 import com.example.testquestion.data.provider.Order;
+import com.example.testquestion.ui.activities.MainActivity;
+import com.example.testquestion.utils.MainViewModel;
+import com.example.testquestion.utils.URLProvider;
 
 import java.util.List;
 

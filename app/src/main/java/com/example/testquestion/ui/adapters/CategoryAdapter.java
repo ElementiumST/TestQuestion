@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testquestion.R;
 import com.example.testquestion.data.dataClasses.DataStack;
-import com.example.testquestion.data.model.modules.ModelDataClass;
-import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.utils.URLProvider;
 
 import java.util.List;

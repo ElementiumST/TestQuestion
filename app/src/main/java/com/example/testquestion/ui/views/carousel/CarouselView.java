@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.testquestion.R;
@@ -24,7 +22,6 @@ import com.example.testquestion.data.dataClasses.ArrayValue;
 import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.data.provider.BaseGetProvider;
 import com.example.testquestion.data.provider.Order;
-import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.ui.adapters.CategoryAdapter;
 import com.example.testquestion.ui.adapters.DataAdapter;
 import com.example.testquestion.ui.adapters.OnItemClickListener;

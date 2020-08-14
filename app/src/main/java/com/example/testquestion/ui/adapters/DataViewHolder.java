@@ -1,7 +1,5 @@
 package com.example.testquestion.ui.adapters;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,9 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testquestion.data.dataClasses.DataStack;
-import com.example.testquestion.ui.activities.MoreInfoActivity;
 import com.example.testquestion.R;
+import com.example.testquestion.data.dataClasses.DataStack;
 import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.ui.views.MapView;
 import com.example.testquestion.utils.URLProvider;

@@ -1,24 +1,20 @@
 package com.example.testquestion.ui.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.testquestion.R;
 import com.example.testquestion.data.dataClasses.DataStack;
 import com.example.testquestion.ui.fragments.InfoFragment;
 import com.example.testquestion.utils.URLProvider;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class MoreInfoActivity extends AppCompatActivity {

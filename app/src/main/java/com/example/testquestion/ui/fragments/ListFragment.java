@@ -1,6 +1,5 @@
 package com.example.testquestion.ui.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testquestion.R;
 import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.ui.activities.MoreInfoActivity;
 import com.example.testquestion.ui.adapters.DataAdapter;
 import com.example.testquestion.utils.OnScrollListener;
-import com.example.testquestion.R;
-
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class ListFragment extends Fragment {
 
