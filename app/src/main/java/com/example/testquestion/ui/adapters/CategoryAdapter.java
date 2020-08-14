@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    List<Class> classList;
+    private List<Class> classList;
 
     public CategoryAdapter(List<Class> classList) {
         this.classList = classList;
@@ -53,11 +53,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @SuppressWarnings("unchecked")
-    public class CategoryViewHolder extends RecyclerView.ViewHolder {
+    class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView titleView;
         ImageView imageView;
         Class clazz;
-        public CategoryViewHolder(@NonNull View itemView) {
+        CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.title);
             imageView = itemView.findViewById(R.id.image);
@@ -67,7 +67,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             });
         }
         @SuppressLint("SetTextI18n")
-        public void  bind(Class clazz) {
+        void  bind(Class clazz) {
             titleView.setText(clazz.getSimpleName().toLowerCase()+"s");
             imageView.setImageResource(URLProvider.getImageResource(clazz.getSimpleName()));
             this.clazz = clazz;

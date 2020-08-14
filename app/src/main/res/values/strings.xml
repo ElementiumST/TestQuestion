@@ -3,4 +3,8 @@
     <string name="title_planets">Planets</string>
     <string name="title_statistics">Statistics</string>
     <string name="search">Search</string>
+    <string name="swapi">SWAPi</string>
+    <string name="created_by">Created for Faceter by STARK</string>
+    <string name="background">Background</string>
+    <string name="more_info">more info…</string>
 </resources>
