@@ -14,29 +14,25 @@ import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Ну решил сделать удобную систему для подгрузки данных с API.
  * Не знаю на сколько это удобно, но обычные запросы по 100 штук втыкать не самое приятное занятие.
- * Работает это по следующему принципу. ViewModel запрашивает данные у провайдера, он отправляет запросы
- * и по завершению отдает данные
- * @param <T>
+ * Провайдер - обьект класса BaseGetProvider или его наследника
+ * Поставка - ответ API на все запросы, отправленные провайдером
+ * В конструктор передаются все нужные данные
+ * provide() запускает отпревку запроса
+ * onLoadSuccess(List<T> data) вызывается по окончанию поставки
  */
 public abstract class BaseGetProvider<T extends ModelDataClass> implements Provider<T> {
-    protected OnProvideContinue<T> listener;
     protected Order order;
     protected Context context;
-    protected RequestQueue requestQueue;
+    private RequestQueue requestQueue;
     protected final Class<T> genericType;
 
-    public BaseGetProvider(Context context, Class<T> type, Order order) {
-        this(context, type, order, null);
-    }
-
-    @SuppressWarnings("unchecked")
-    public BaseGetProvider(Context context, Class<T> type, Order order, OnProvideContinue<T> listener) {
-        this.listener = listener;
+    protected BaseGetProvider(Context context, Class<T> type, Order order) {
         this.order = order;
         this.context = context;
         createRequestQueue();
@@ -52,24 +48,20 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         }
     }
 
-    protected void createRequestQueue() {
+    private void createRequestQueue() {
         this.requestQueue = Volley.newRequestQueue(context);
     }
 
-    protected ArrayList<T> products = new ArrayList<>();
+    ArrayList<T> products = new ArrayList<>();
 
-    void executeProvideFor(String url) {
+    private void executeProvideFor(String url) {
         StringRequest request = new StringRequest(Request.Method.GET,
                 url, this::handleResponse
         , error -> {
-            // В логи исключение/ошибку
+            checkToComplete();
             if(error.getMessage() != null)
                 Log.e("Provide error", Objects.requireNonNull(error.getMessage()));
-            // отсутствие товара на складе тоже ответ, так что нужно ответить о том, что ответ всетаки пришел
-            if(listener != null)
-                listener.onFail("request error for: " + url);
         });
-        // добавляем запрос в очередь
         requestQueue.add(request);
     }
     protected void handleResponse(String response){
@@ -83,21 +75,16 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
                 InvocationTargetException | ClassCastException | JSONException e) {
             Log.e("Create new instance error", Objects.requireNonNull(e.getMessage()));
             e.printStackTrace();
-            listener.onFail("parse data error for: "+response);
         }
     }
 
-    int counter = 0;
-    int number;
-    void checkToComplete() {
+    // подсчет полученных ответов, что бы завершение поставки было по завершению всех запросов
+    private int counter = 0;
+    private int number;
+    private void checkToComplete() {
         counter++;
         if(counter < number) return;
-        complete();
-    }
-    void complete() {
         onLoadSuccess(products);
-        if(listener != null)
-            listener.onSuccess(products);
     }
 
 

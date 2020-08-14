@@ -1,5 +1,7 @@
-package com.example.testquestion.ui.planet;
+package com.example.testquestion.ui.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testquestion.ui.activities.MainActivity;
+import com.example.testquestion.ui.activities.MoreInfoActivity;
+import com.example.testquestion.ui.adapters.DataAdapter;
 import com.example.testquestion.utils.OnScrollListener;
 import com.example.testquestion.R;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListFragment extends Fragment {
 
@@ -28,7 +35,13 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
 
         MainActivity activity = (MainActivity) requireActivity();
-        recyclerView.setAdapter(activity.getAdapter(activity.getCurrentListClass().getSimpleName()));
+        DataAdapter adapter = activity.getAdapter(activity.getCurrentListClass().getSimpleName());
+        adapter.setListener(element -> {
+            Intent intent = new Intent(activity, MoreInfoActivity.class);
+            intent.putExtra("data", element);
+            startActivity(intent);
+        });
+        recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new OnScrollListener());
 
         return root;

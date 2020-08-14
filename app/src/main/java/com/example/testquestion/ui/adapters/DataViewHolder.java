@@ -18,27 +18,28 @@ import com.example.testquestion.utils.URLProvider;
 
 import java.util.HashMap;
 
-public class DataViewHolder<T extends ModelDataClass> extends RecyclerView.ViewHolder {
+class DataViewHolder<T extends ModelDataClass> extends RecyclerView.ViewHolder {
     private TextView nameView;
     private MapView mapView;
-    T element;
-    public DataViewHolder(@NonNull View itemView, Activity activity, Class<T> clazz) {
+    private T element;
+
+    DataViewHolder(@NonNull View itemView, DataAdapter adapter, Class<T> clazz) {
         super(itemView);
         nameView = itemView.findViewById(R.id.name);
         mapView = itemView.findViewById(R.id.mapView);
         ImageView imageView = itemView.findViewById(R.id.image);
         imageView.setImageResource(URLProvider.getImageResource(clazz.getSimpleName()));
-        itemView.setOnClickListener(view -> {
-            if(activity == null) return;
-            Intent intent = new Intent(activity, MoreInfoActivity.class);
-            intent.putExtra("data", new DataStack<T>(element, clazz));
-            activity.startActivity(intent);
-        });
+        itemView.setOnClickListener(view ->{
+            if(adapter.listener != null)
+                adapter.listener.OnClick(new DataStack<>(element, clazz));
+            }
+
+        );
     }
-    public void bind(T element) {
+    void bind(T element) {
         this.element = element;
         HashMap<String, String> data = element.getOtherContent();
-        nameView.setText(element.getName());
+        nameView.setText(element.getName().toLowerCase());
         mapView.setContent(data);
     }
 

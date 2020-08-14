@@ -1,6 +1,7 @@
 package com.example.testquestion.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.testquestion.data.dataClasses.DataStack;
 import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.R;
 import com.example.testquestion.utils.MainViewModel;
@@ -18,18 +20,19 @@ import com.example.testquestion.data.provider.Order;
 import java.util.List;
 
 public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<DataViewHolder<T>> {
-    List<T> data;
-    Class<T> clazz;
-    MainViewModel<T> model;
-    MainActivity activity;
+    private List<T> data;
+    private Class<T> clazz;
+    private MainViewModel<T> model;
+    OnItemClickListener listener;
+    private int page = 1;
     public DataAdapter(MainViewModel<T> model, MainActivity activity, Class<T> clazz) {
         model.getObservableCollection().observe(activity, ts -> {
+            if(data != null && data.size()<ts.size()) page++;
             this.data = ts;
             notifyDataSetChanged();
         });
         this.model = model;
         this.clazz = clazz;
-        this.activity = activity;
     }
     public DataAdapter(List<T> data, Class<T> clazz) {
         this.data = data;
@@ -38,11 +41,11 @@ public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<
 
     @NonNull
     @Override
-    public DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DataViewHolder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.adapter_data, parent, false);
-        return new DataViewHolder<T>(view, activity, clazz);
+        return new DataViewHolder<>(view, this, clazz);
     }
 
 
@@ -58,7 +61,12 @@ public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<
 
     public void uploadMoreData() {
         Order order = new Order();
-        order.addPage(URLProvider.getURL(clazz.getSimpleName()), data.size()/10+1);
+        order.addPage(URLProvider.getURL(clazz.getSimpleName()), page+1);
         model.uploadPage(order);
     }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 }

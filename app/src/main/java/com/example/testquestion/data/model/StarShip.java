@@ -62,7 +62,7 @@ public class StarShip extends ModelDataClass {
         data.put("Consumables", consumables);
         data.put("Hyper drive rating", hyperDriveRating);
         data.put("MGLT", MGLT);
-        data.put("Star ship class", starShipClass);
+        data.put("Starship class", starShipClass);
         return data;
     }
     @Override

@@ -15,17 +15,11 @@ import java.util.Collections;
 import java.util.Objects;
 
 public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProvider<T> {
-    public PageProvider(Context context, Class<T> type) {
-        super(context, type, null, null);
-    }
 
     public PageProvider(Context context, Class<T> type, Order order) {
-        super(context, type, order, null);
+        super(context, type, order);
     }
 
-    public PageProvider(Context context, Class<T> type, Order order, OnProvideContinue<T> listener) {
-        super(context, type, order, listener);
-    }
 
 
     @Override
@@ -34,7 +28,7 @@ public abstract class PageProvider<T extends ModelDataClass> extends BaseGetProv
             JSONObject object = new JSONObject(response);
             JSONArray array = object.getJSONArray("results");
             Collections.addAll(products, T.getArrayOfObject(array, genericType));
-            complete();
+            onLoadSuccess(products);
 
         } catch (JSONException e) {
             if (BuildConfig.DEBUG) {

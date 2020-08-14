@@ -31,7 +31,6 @@ public class MapView extends LinearLayout {
     }
     private void initView() {
         setOrientation(VERTICAL);
-
     }
     @SuppressLint("SetTextI18n")
     public void setContent(HashMap<String, String> map) {

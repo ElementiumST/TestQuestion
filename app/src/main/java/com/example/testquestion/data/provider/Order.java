@@ -7,6 +7,9 @@ import com.example.testquestion.data.model.modules.ModelDataClass;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Датакласс с ссылками для поставки провайдером
+ */
 public class Order {
 
     private List<String> orderList = new ArrayList<>();

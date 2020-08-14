@@ -51,7 +51,6 @@ public class People extends ModelDataClass {
         data.put("Skin color", skinColor);
         data.put("Birth year", birthYear);
         data.put("Gender", gender);
-        data.put("Home world", homeWorld);
         return data;
     }
 
@@ -59,6 +58,8 @@ public class People extends ModelDataClass {
     @SuppressWarnings("unchecked")
     public <T extends ModelDataClass> List<ArrayValue<T>> getArrays() {
         List<ArrayValue<T>> list = new ArrayList<>();
+        list.add((ArrayValue<T>) new ArrayValue<>(Planet.class, "HomeWorld", new Planet[] {
+                new Planet(homeWorld)}));
         list.add((ArrayValue<T>) new ArrayValue<>(Vehicle.class, "Vehicles", vehicles));
         list.add((ArrayValue<T>) new ArrayValue<>(Film.class, "Films", films));
         list.add((ArrayValue<T>) new ArrayValue<>(StarShip.class, "Starships", starShips));

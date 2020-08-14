@@ -33,7 +33,7 @@ public class Film extends ModelDataClass {
             openingCrawl = object.getString("opening_crawl");
             director = object.getString("director");
             producer = object.getString("producer");
-            releaseDate = object.getString("release_date");
+            releaseDate = object.getString("release_date").replace("-", ".");
             peoples = getArrayOfObjectByUrlArray(object.getJSONArray("characters"), People.class);
             planets = getArrayOfObjectByUrlArray(object.getJSONArray("planets"), Planet.class);
             starShips = getArrayOfObjectByUrlArray(object.getJSONArray("starships"), StarShip.class);
@@ -67,45 +67,5 @@ public class Film extends ModelDataClass {
     }
     public String getName() {
         return title;
-    }
-
-    public String getOpeningCrawl() {
-        return openingCrawl;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public int getEpisodeId() {
-        return episodeId;
-    }
-
-    public People[] getPeoples() {
-        return peoples;
-    }
-
-    public Planet[] getPlanets() {
-        return planets;
-    }
-
-    public StarShip[] getStarShips() {
-        return starShips;
-    }
-
-    public Vehicle[] getVehicles() {
-        return vehicles;
-    }
-
-    public Specie[] getSpecies() {
-        return species;
     }
 }

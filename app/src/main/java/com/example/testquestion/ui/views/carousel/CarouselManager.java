@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CarouselManager extends LinearLayoutManager {
 
-    private final float mShrinkAmount = 0.15f;
-    private final float mShrinkDistance = 0.9f;
+/**
+ * Лейаут менеджер, созданный лишь для {@link CarouselView CarouselView}
+ */
+public class CarouselManager extends LinearLayoutManager {
 
     public CarouselManager(Context context) {
         super(context);
@@ -29,8 +30,10 @@ public class CarouselManager extends LinearLayoutManager {
 
             float midpoint = getWidth() / 2.f;
             float d0 = 0.f;
+            float mShrinkDistance = 0.9f;
             float d1 = mShrinkDistance * midpoint;
             float s0 = 1.f;
+            float mShrinkAmount = 0.15f;
             float s1 = 1.f - mShrinkAmount;
 
 
@@ -59,7 +62,7 @@ public class CarouselManager extends LinearLayoutManager {
     }
 
     private class TopSnappedSmoothScroller extends LinearSmoothScroller {
-        public TopSnappedSmoothScroller(Context context) {
+        TopSnappedSmoothScroller(Context context) {
             super(context);
 
         }

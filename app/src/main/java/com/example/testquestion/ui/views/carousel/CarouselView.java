@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.testquestion.R;
@@ -25,6 +27,7 @@ import com.example.testquestion.data.provider.Order;
 import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.ui.adapters.CategoryAdapter;
 import com.example.testquestion.ui.adapters.DataAdapter;
+import com.example.testquestion.ui.adapters.OnItemClickListener;
 import com.example.testquestion.ui.views.LoadAnimatedView;
 
 import java.util.List;
@@ -63,8 +66,9 @@ public class CarouselView extends FrameLayout {
         }
         this.addView(root);
     }
-    public void setContent(List<Class> classes, MainActivity activity) {
-        CategoryAdapter adapter = new CategoryAdapter(classes, activity);
+    public void setContent(List<Class> classes, OnItemClickListener listener) {
+        CategoryAdapter adapter = new CategoryAdapter(classes);
+        adapter.setListener(listener);
         RecyclerView view = createRecyclerView();
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) listViewSocket.getLayoutParams();
         params.height = 0;
@@ -74,13 +78,16 @@ public class CarouselView extends FrameLayout {
         view.setAdapter(adapter);
     }
 
+    OnItemClickListener listener;
+
     @SuppressWarnings("unchecked")
-    public  <T extends ModelDataClass> void setContent(ArrayValue value) {
+    public  <T extends ModelDataClass> void setContent(ArrayValue value, OnItemClickListener listener) {
+
         titleView.setText(value.getViewName());
         LoadAnimatedView loadView = new LoadAnimatedView(getContext());
         loadView.setSize(ViewGroup.LayoutParams.MATCH_PARENT, 96);
         listViewSocket.addView(loadView);
-
+        this.listener = listener;
         Order order = new Order();
         for (T element :
                 (T[]) value.getArray()) {
@@ -90,17 +97,22 @@ public class CarouselView extends FrameLayout {
         provider.provide();
 
     }
+
+
     RecyclerView createRecyclerView() {
         RecyclerView recyclerView = new RecyclerView(getContext());
         CarouselManager manager = new CarouselManager(getContext(), RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
         SnapHelper snapHelper = new LinearSnapHelper();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            //После того, как пользователь заканчивает прокрутку и она останавливается по инерции,
+            //наш recycler view автоматичиски скроллит к ближайшему эллементу
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState == 0) {
                     View view =  snapHelper.findSnapView(manager);
+                    assert view != null;
                     manager.smoothScrollToPosition(recyclerView, null,
                             recyclerView.getChildAdapterPosition(view));
                 }
@@ -113,13 +125,14 @@ public class CarouselView extends FrameLayout {
 
     }
     class DataProvider<T extends ModelDataClass> extends BaseGetProvider<T> {
-        public DataProvider(Context context, Class<T> type, Order order) {
+        DataProvider(Context context, Class<T> type, Order order) {
             super(context, type, order);
         }
 
         @Override
         public void onLoadSuccess(List<T> data) {
             DataAdapter<T> adapter = new DataAdapter<>(data, genericType);
+            adapter.setListener(listener);
             RecyclerView recyclerView = createRecyclerView();
             recyclerView.setAdapter( adapter);
         }

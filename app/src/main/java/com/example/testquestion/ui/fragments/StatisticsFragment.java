@@ -1,9 +1,10 @@
-package com.example.testquestion.ui.statistics;
+package com.example.testquestion.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,9 @@ public class StatisticsFragment extends Fragment {
         classes.add(Specie.class);
         classes.add(StarShip.class);
         classes.add(Vehicle.class);
-        view.setContent(classes, (MainActivity) requireActivity());
+
+        MainActivity activity = (MainActivity) requireActivity();
+        view.setContent(classes, dataStack -> activity.setActiveInfoFragment(dataStack.getClazz()));
         return root;
     }
 }

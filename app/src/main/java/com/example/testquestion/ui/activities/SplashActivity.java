@@ -44,7 +44,6 @@ public class SplashActivity extends AppCompatActivity {
     Intent intent;
     private void startUploadData() {
         intent = new Intent(this, MainActivity.class);
-        URLProvider urlProvider = new URLProvider();
         (new FirstPageProvider<>(this, Film.class)).provide();
         (new FirstPageProvider<>(this, People.class)).provide();
         (new FirstPageProvider<>(this, Planet.class)).provide();
@@ -60,19 +59,17 @@ public class SplashActivity extends AppCompatActivity {
     class FirstPageProvider<T extends ModelDataClass> extends PageProvider<T> {
         private static final int percent = 100/DATA_COUNT+1;
 
-        public FirstPageProvider(Context context, Class<T> type) {
-            super(context, type);
+        FirstPageProvider(Context context, Class<T> type) {
+            super(context, type, null);
             this.order = new Order();
             order.addPage(URLProvider.getURL(type.getSimpleName()), 1);
-
         }
 
 
         @Override
         public void onLoadSuccess(List<T> data) {
-            intent.putExtra(genericType.getName()
-                    .replace("com.example.testquestion.data.model.", ""),
-                    (ArrayList<T>)data);
+            intent.putExtra(genericType.getSimpleName(),
+                    (ArrayList<T>) data);
             bar.setProgress(bar.getProgress()+percent);
             if(bar.getProgress() >= 100)
                 dataLoadSuccess();

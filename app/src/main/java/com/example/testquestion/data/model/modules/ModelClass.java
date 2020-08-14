@@ -5,6 +5,7 @@ import com.example.testquestion.data.dataClasses.ArrayValue;
 import java.util.HashMap;
 import java.util.List;
 
+// интерфейс для
 public interface ModelClass {
     String getName();
     HashMap<String, String> getOtherContent();

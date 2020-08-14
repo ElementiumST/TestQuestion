@@ -15,6 +15,7 @@ import com.example.testquestion.utils.URLProvider;
 import com.example.testquestion.data.model.Vehicle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -86,6 +87,19 @@ public class MainActivity extends AppCompatActivity {
         currentListClass = clazz;
         navController.navigate(R.id.navigation_planet);
         navView.getMenu().findItem(R.id.navigation_planet).setTitle(clazz.getSimpleName()+"s");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("class", currentListClass.getSimpleName());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        setActiveInfoFragment(URLProvider.getClass(
+                Objects.requireNonNull(savedInstanceState.getString("class"))));
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     public Class getCurrentListClass() {

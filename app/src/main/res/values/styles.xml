@@ -20,8 +20,5 @@
     <style name="BaseTextView">
         <item name="android:textColor">@color/colorBackgroundLight</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textAlignment">center</item>
-
     </style>
-
 </resources>
