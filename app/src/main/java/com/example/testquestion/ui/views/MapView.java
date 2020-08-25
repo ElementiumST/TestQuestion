@@ -32,13 +32,16 @@ public class MapView extends LinearLayout {
     private void initView() {
         setOrientation(VERTICAL);
     }
+
+    public static int fieldCount = 7;
+
     @SuppressLint("SetTextI18n")
     public void setContent(HashMap<String, String> map) {
         this.removeAllViews();
         int iterator = 0;
         for (Map.Entry<String, String> entry : map.entrySet()) {
             if(entry.getValue().length() >30) continue;
-            if(iterator >5) break;
+            if(iterator > fieldCount) break;
             createTextView(entry.getKey()+":", entry.getValue());
             iterator++;
         }
