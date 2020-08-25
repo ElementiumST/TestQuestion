@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorBackgroundDark</item>
-        <item name="colorAccent">@color/colorBackground</item>
+        <item name="colorAccent">@color/colorBackgroundLight</item>
     </style>
     <style name="BackgroundConstraintLayout" >
         <item name="android:background">@color/colorBackgroundDark</item>

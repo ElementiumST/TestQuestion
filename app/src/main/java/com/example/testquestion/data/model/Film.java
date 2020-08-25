@@ -33,7 +33,7 @@ public class Film extends ModelDataClass {
             openingCrawl = object.getString("opening_crawl");
             director = object.getString("director");
             producer = object.getString("producer");
-            releaseDate = object.getString("release_date");
+            releaseDate = object.getString("release_date").replace('-', '.');
             peoples = getArrayOfObjectByUrlArray(object.getJSONArray("characters"), People.class);
             planets = getArrayOfObjectByUrlArray(object.getJSONArray("planets"), Planet.class);
             starShips = getArrayOfObjectByUrlArray(object.getJSONArray("starships"), StarShip.class);

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testquestion.ui.activities.MainActivity;
 import com.example.testquestion.R;
+import com.example.testquestion.ui.views.LoadAnimatedView;
 import com.example.testquestion.utils.MainViewModel;
 import com.example.testquestion.data.model.modules.ModelDataClass;
 import com.example.testquestion.utils.URLProvider;
@@ -22,6 +23,7 @@ public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<
     Class<T> clazz;
     MainViewModel<T> model;
     MainActivity activity;
+
     public DataAdapter(MainViewModel<T> model, MainActivity activity, Class<T> clazz) {
         model.getObservableCollection().observe(activity, ts -> {
             this.data = ts;
@@ -42,7 +44,7 @@ public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.adapter_data, parent, false);
-        return new DataViewHolder<T>(view, activity, clazz);
+        return new DataViewHolder<>(view, activity, clazz);
     }
 
 

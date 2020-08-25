@@ -34,7 +34,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.adapter_category, parent, false);
-        return new CategoryViewHolder<>(view);
+        return new CategoryViewHolder(view);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
 
 
-    public class CategoryViewHolder<T extends ModelDataClass> extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView titleView;
         ImageView imageView;
         Class clazz;
@@ -62,7 +62,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             });
         }
         @SuppressLint("SetTextI18n")
-        public void  bind(Class<T> clazz) {
+        public void  bind(Class clazz) {
             titleView.setText(clazz.getSimpleName().toLowerCase()+"s");
             imageView.setImageResource(URLProvider.getImageResource(clazz.getSimpleName()));
             this.clazz = clazz;

@@ -74,6 +74,7 @@ public class CarouselView extends FrameLayout {
         view.setAdapter(adapter);
     }
 
+
     @SuppressWarnings("unchecked")
     public  <T extends ModelDataClass> void setContent(ArrayValue value) {
         titleView.setText(value.getViewName());
