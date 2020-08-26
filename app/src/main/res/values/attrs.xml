@@ -3,4 +3,5 @@
     <declare-styleable name="carousel">
         <attr name="text" format="string"/>
     </declare-styleable>
+    <bool name="isTablet">false</bool>
 </resources>

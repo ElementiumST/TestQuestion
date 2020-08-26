@@ -33,9 +33,14 @@ public class ListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager manager;
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
         int orientation = getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !tabletSize
+                || orientation == Configuration.ORIENTATION_PORTRAIT && tabletSize) {
             manager = new GridLayoutManager(requireContext(), 2);
+        } else if(orientation == Configuration.ORIENTATION_LANDSCAPE && tabletSize) {
+            manager = new GridLayoutManager(requireContext(), 3);
         } else {
             manager = new LinearLayoutManager(requireContext());
         }
