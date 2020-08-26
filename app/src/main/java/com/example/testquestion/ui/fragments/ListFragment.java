@@ -32,7 +32,7 @@ public class ListFragment extends Fragment {
 
         MainActivity activity = (MainActivity) requireActivity();
         DataAdapter adapter = activity.getAdapter(activity.getCurrentListClass().getSimpleName());
-        adapter.setListener(element -> {
+        adapter.setOnItemClickListener(element -> {
             Intent intent = new Intent(activity, MoreInfoActivity.class);
             intent.putExtra("data", element);
             startActivity(intent);

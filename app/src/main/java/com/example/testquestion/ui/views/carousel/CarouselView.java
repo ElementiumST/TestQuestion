@@ -65,7 +65,7 @@ public class CarouselView extends FrameLayout {
     }
     public void setContent(List<Class> classes, OnItemClickListener listener) {
         CategoryAdapter adapter = new CategoryAdapter(classes);
-        adapter.setListener(listener);
+        adapter.setOnItemClickListener(listener);
         RecyclerView view = createRecyclerView();
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) listViewSocket.getLayoutParams();
         params.height = 0;
@@ -118,8 +118,6 @@ public class CarouselView extends FrameLayout {
         listViewSocket.removeAllViews();
         listViewSocket.addView(recyclerView);
         return recyclerView;
-
-
     }
     class DataProvider<T extends ModelDataClass> extends BaseGetProvider<T> {
         DataProvider(Context context, Class<T> type, Order order) {
@@ -129,7 +127,7 @@ public class CarouselView extends FrameLayout {
         @Override
         public void onLoadSuccess(List<T> data) {
             DataAdapter<T> adapter = new DataAdapter<>(data, genericType);
-            adapter.setListener(listener);
+            adapter.setOnItemClickListener(listener);
             RecyclerView recyclerView = createRecyclerView();
             recyclerView.setAdapter( adapter);
         }
