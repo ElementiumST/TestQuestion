@@ -2,6 +2,8 @@ package com.example.testquestion.data.model.modules;
 
 import android.util.Log;
 
+import com.example.testquestion.data.dataClasses.ArrayValue;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,13 +12,15 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * суперкласс для всех классов данных, получаемых с API.
  * Имеет конструктор для URL, в которой находится ссылка на обьект в API
  * и для JSON, В котором содержатся все данные
  */
-public abstract class ModelDataClass implements Serializable, ModelClass {
+public abstract class ModelDataClass implements Serializable {
     private String URL;
     private String created, edited;
 
@@ -83,4 +87,7 @@ public abstract class ModelDataClass implements Serializable, ModelClass {
     protected void sendJSONException(Exception e) {
         Log.e("JSON parse error", e.getMessage() +"\n" + Arrays.toString(e.getStackTrace()));
     }
+    public abstract String getName();
+    public abstract HashMap<String, String> getOtherContent();
+    public abstract <T extends ModelDataClass> List<ArrayValue<T>> getArrays();
 }
