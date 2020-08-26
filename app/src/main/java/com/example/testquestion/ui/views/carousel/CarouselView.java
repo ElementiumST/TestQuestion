@@ -54,7 +54,6 @@ public class CarouselView extends FrameLayout {
                     attributeSet,
                     R.styleable.carousel,
                     0, 0);
-
             try {
                 titleView.setText(a.getString(R.styleable.carousel_text));
             } finally {
