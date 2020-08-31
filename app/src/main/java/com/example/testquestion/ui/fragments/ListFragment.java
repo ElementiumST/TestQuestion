@@ -1,13 +1,18 @@
 package com.example.testquestion.ui.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,12 +32,23 @@ public class ListFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(requireContext());
+        RecyclerView.LayoutManager manager;
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE && !tabletSize
+                || orientation == Configuration.ORIENTATION_PORTRAIT && tabletSize) {
+            manager = new GridLayoutManager(requireContext(), 2);
+        } else if(orientation == Configuration.ORIENTATION_LANDSCAPE && tabletSize) {
+            manager = new GridLayoutManager(requireContext(), 3);
+        } else {
+            manager = new LinearLayoutManager(requireContext());
+        }
         recyclerView.setLayoutManager(manager);
 
         MainActivity activity = (MainActivity) requireActivity();
         DataAdapter adapter = activity.getAdapter(activity.getCurrentListClass().getSimpleName());
-        adapter.setListener(element -> {
+        adapter.setOnItemClickListener(element -> {
             Intent intent = new Intent(activity, MoreInfoActivity.class);
             intent.putExtra("data", element);
             startActivity(intent);

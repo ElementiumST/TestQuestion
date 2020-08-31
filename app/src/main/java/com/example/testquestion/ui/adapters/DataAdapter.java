@@ -63,7 +63,7 @@ public class DataAdapter<T extends ModelDataClass> extends RecyclerView.Adapter<
         model.uploadPage(order);
     }
 
-    public void setListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 

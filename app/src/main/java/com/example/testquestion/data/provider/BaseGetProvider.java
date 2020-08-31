@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -25,7 +26,7 @@ import java.util.Objects;
  * provide() запускает отпревку запроса
  * onLoadSuccess(List<T> data) вызывается по окончанию поставки
  */
-public abstract class BaseGetProvider<T extends ModelDataClass> implements Provider<T> {
+public abstract class BaseGetProvider<T extends ModelDataClass> {
     protected Order order;
     protected Context context;
     private RequestQueue requestQueue;
@@ -85,6 +86,7 @@ public abstract class BaseGetProvider<T extends ModelDataClass> implements Provi
         if(counter < number) return;
         onLoadSuccess(products);
     }
+    protected abstract void onLoadSuccess(List<T> data);
 
 
 }

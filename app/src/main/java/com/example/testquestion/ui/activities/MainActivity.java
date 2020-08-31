@@ -28,7 +28,7 @@ import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
-    HashMap modelMap = new HashMap<String, String>();
+    HashMap<String, MainViewModel> modelMap = new HashMap<>();
     NavController navController;
     BottomNavigationView navView;
     @Override
