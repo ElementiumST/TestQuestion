@@ -1,6 +1,8 @@
 package com.example.testquestion.ui.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.animation.Animation;
@@ -46,6 +48,7 @@ public class LoadAnimatedView extends FrameLayout {
         imageView.startAnimation(anim);
 
     }
+
 
     public void setSize(int width, int height) {
         LayoutParams params = new LayoutParams(width, height);

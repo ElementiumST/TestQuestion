@@ -22,7 +22,7 @@ public class MainViewModel<T extends ModelDataClass> extends ViewModel {
 
     public void setClass(Class<T> clazz) {
         this.clazz = clazz;
-        className = clazz.getName().replace("com.example.testquestion.data.model.", "");
+        className = clazz.getSimpleName();
     }
 
     public void setContext(Context context){

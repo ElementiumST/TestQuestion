@@ -33,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Objects.requireNonNull(getSupportActionBar()).hide();
         bindViews();
+        // Знаю, что должны быть темы, но мои навыки дизайнера слишком скудны для этого,
+        // а добавлять 1 тему для фикса этого варминга выглядит не очень.
         bar.getProgressDrawable().setColorFilter(
                 getResources().getColor(R.color.colorBackgroundLight), android.graphics.PorterDuff.Mode.SRC_IN);
         startUploadData();
@@ -43,6 +45,7 @@ public class SplashActivity extends AppCompatActivity {
     }
     Intent intent;
     private void startUploadData() {
+
         intent = new Intent(this, MainActivity.class);
         (new FirstPageProvider<>(this, Film.class)).provide();
         (new FirstPageProvider<>(this, People.class)).provide();
@@ -57,6 +60,7 @@ public class SplashActivity extends AppCompatActivity {
         overridePendingTransition(0, R.anim.activity_end);
     }
     class FirstPageProvider<T extends ModelDataClass> extends PageProvider<T> {
+        // хардовый вариант, TODO создать пулл подгружаемых классов
         private static final int percent = 100/DATA_COUNT+1;
 
         FirstPageProvider(Context context, Class<T> type) {
